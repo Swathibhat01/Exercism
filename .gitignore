@@ -12,7 +12,7 @@ gradle
 
 ### Gradle ###
 .gradle
-/build/
+build
 gradle
 
 
