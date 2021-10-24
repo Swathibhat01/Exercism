@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 
 public class ScrabbleScoreTest {
 
+
+
     @Test
     public void testALowerCaseLetter() {
         Scrabble scrabble = new Scrabble("a");
