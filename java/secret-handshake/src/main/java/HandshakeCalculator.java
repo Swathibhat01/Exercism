@@ -27,39 +27,6 @@ class HandshakeCalculator {
 
         return listOfSignals;
 
-//        if (binaryString.equals("0")) {
-//            return listOfSignals;
-//        }
-//
-//        if (binaryString.charAt(0) == '1') {
-//            listOfSignals.add(Signal.WINK);
-//            if (binaryString.length() <= 1) {
-//                return listOfSignals;
-//            }
-//        }
-//        if (binaryString.charAt(1) == '1') {
-//            listOfSignals.add(Signal.DOUBLE_BLINK);
-//            if (binaryString.length() <= 2) {
-//                return listOfSignals;
-//            }
-//        }
-//        if (binaryString.charAt(2) == '1') {
-//            listOfSignals.add(Signal.CLOSE_YOUR_EYES);
-//            if (binaryString.length() <= 3) {
-//                return listOfSignals;
-//            }
-//        }
-//        if (binaryString.charAt(3) == '1') {
-//            listOfSignals.add(Signal.JUMP);
-//            if (binaryString.length() <= 4) {
-//                return listOfSignals;
-//            }
-//        }
-//        if (binaryString.charAt(4) == '1') {
-//            Collections.reverse(listOfSignals);
-//        }
-//
-//        return listOfSignals;
     }
 
     String convertFromDecimalToReversedBinary(int number) {
