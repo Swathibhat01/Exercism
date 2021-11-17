@@ -2,15 +2,19 @@ import java.util.Arrays;
 
 class Matrix {
 
-    int[][] matrix;
+    private int[][] matrix;
 
     Matrix(String matrixAsString) {
         matrix =  Arrays.stream(matrixAsString.split("\n"))
-                        .map(r -> (Arrays.stream(r.split(" "))
-                                         .mapToInt(Integer::parseInt)
-                                         .toArray()))
+                        .map(this::splitColumns)
                         .toArray(int[][]::new);
 
+    }
+
+    private int[] splitColumns(String r) {
+        return Arrays.stream(r.split(" "))
+                         .mapToInt(Integer::parseInt)
+                         .toArray();
     }
 
     int[] getRow(int rowNumber) {

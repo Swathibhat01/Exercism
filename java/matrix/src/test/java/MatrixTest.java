@@ -11,6 +11,7 @@ public class MatrixTest {
         int rowIndex = 1;
         int[] expectedRow = {1};
 
+
         Matrix matrix = new Matrix(matrixAsString);
 
         assertArrayEquals(expectedRow, matrix.getRow(rowIndex));
