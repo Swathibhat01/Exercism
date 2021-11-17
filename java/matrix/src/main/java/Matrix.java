@@ -5,11 +5,11 @@ class Matrix {
     int[][] matrix;
 
     Matrix(String matrixAsString) {
-        matrix =  Arrays.stream(matrixAsString.split("\n")).map(r ->
-        {
-            return Arrays.stream(r.split(" ")).mapToInt(Integer::parseInt).toArray();
-
-        }).toArray(int[][]::new);
+        matrix =  Arrays.stream(matrixAsString.split("\n"))
+                        .map(r -> (Arrays.stream(r.split(" "))
+                                         .mapToInt(Integer::parseInt)
+                                         .toArray()))
+                        .toArray(int[][]::new);
 
     }
 
