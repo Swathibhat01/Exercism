@@ -1,29 +1,32 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 class Flattener<T> {
 
-    public List<T> flatten(List<T> list){
+    public List<T> flatten(List<T> list) {
         List<T> flattenedList = new ArrayList<>();
-        flattenHelper(list , flattenedList);
+        flattenHelper(list, flattenedList);
         return flattenedList;
 
     }
 
     private void flattenHelper(List<T> list, List<T> flattenedList) {
-        for(Object l : list){
-            if(l!=null){
-                if(l instanceof List){
-                    flattenHelper((List<T>) l ,flattenedList);
-                }
-                else
-                    flattenedList.add((T) l);
-
+        for (T l : list) {
+            if (l == null) {
+                continue;
             }
+            if (!(l instanceof List)) {
+                flattenedList.add(l);
+                continue;
+            }
+
+            flattenHelper((List<T>) l, flattenedList);
         }
     }
-
-
 }
+
+
+
+
+
 
