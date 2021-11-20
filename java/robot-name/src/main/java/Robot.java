@@ -3,10 +3,11 @@ import java.util.Random;
 import java.util.Set;
 
 class Robot {
+
     private String name;
     private Set<String> allRobotNameInFactory = new HashSet<>();
 
-    Robot(){
+    Robot() {
         reset();
     }
 
@@ -18,22 +19,19 @@ class Robot {
         this.name = name;
     }
 
-    public void reset(){
-        String allowedAlphabet =  "ABCDEFGHIJKLMNOPQRSTUVWZYZ";
+    public void reset() {
+        String allowedAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWZYZ";
         String allowedDigits = "0123456789";
 
         StringBuilder robotName;
-        do{
-            robotName =generateRobotName(allowedAlphabet,allowedDigits);
-        }while (allRobotNameInFactory.contains(robotName.toString()));
+        do {
+            robotName = generateRobotName(allowedAlphabet, allowedDigits);
+        } while (allRobotNameInFactory.contains(robotName.toString()));
         setName(robotName.toString());
 
-
-
-
-
     }
-    private StringBuilder generateRobotName(String alphabet ,String digits){
+
+    private StringBuilder generateRobotName(String alphabet, String digits) {
         StringBuilder name = new StringBuilder();
         Random randomNumber = new Random();
         getRandomCharFromPattern(alphabet, name, randomNumber);
