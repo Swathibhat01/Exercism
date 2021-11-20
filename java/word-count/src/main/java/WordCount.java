@@ -2,11 +2,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 class WordCount {
 
     public HashMap<String, Integer> phrase(String word) {
+
         HashMap<String,Integer> wordCount = new HashMap<>();
 
         String[] splitWord = word.split("[\\s,]+");
