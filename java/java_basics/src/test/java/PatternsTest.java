@@ -28,10 +28,13 @@ public class PatternsTest {
     }
 
     @Test
-    public  void starBoxTestWithSize8(){
+    public  void starBoxTestWithSize8Test(){
         patterns.printDollarBox(8);
     }
 
-
+    @Test
+    public  void invertedPyramidStarTest(){
+        patterns.invertedPyramid(6);
+    }
 
 }
