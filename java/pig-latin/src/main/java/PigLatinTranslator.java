@@ -27,14 +27,12 @@ public class PigLatinTranslator {
         if (word.startsWith("yt") || (word.startsWith("xr"))) {
             return String.valueOf(sb.append(word).append("ay"));
         }
-
         if (word.contains("qu")) {
             int qu = word.indexOf("qu");
             System.out.println(qu);
             return String.valueOf(
                 sb.append(word.substring(qu + 2)).append(word.substring(0, qu + 2)).append("ay"));
         }
-
         for (int j = 1; j < word.length(); j++) {
             int midVowelIndex = 0;
             for (int i = 0; i < vowels.length(); i++) {
@@ -48,7 +46,6 @@ public class PigLatinTranslator {
                     .append(word.substring(0, midVowelIndex)).append("ay"));
             }
         }
-
         if (word.contains("y")) {
             int y = word.indexOf("y");
             return String.valueOf(sb.append(word.substring(y)).append(word, 0, y).append("ay"));
