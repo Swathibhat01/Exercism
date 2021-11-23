@@ -1,6 +1,8 @@
+import java.util.Arrays;
+
 class ResistorColorDuo {
 
-    public enum COLORS {
+    public enum Colors {
         BLACK(0),
         BROWN(1),
         RED(2),
@@ -12,9 +14,9 @@ class ResistorColorDuo {
         GREY(8),
         WHITE(9);
 
-        private int value;
+        private final int value;
 
-        COLORS(int i) {
+        Colors(int i) {
             this.value = i;
         }
 
@@ -24,7 +26,14 @@ class ResistorColorDuo {
     }
 
     int value(String[] colors) {
-        return (COLORS.valueOf(colors[0].toUpperCase()).getValue()) * 10 + COLORS
-            .valueOf(colors[1].toUpperCase()).getValue();
+        if (colors.length < 2) {
+            return 0;
+        }
+        return Arrays.stream(colors).limit(2)
+            .map(String::toUpperCase)
+            .map(Colors::valueOf)
+            .map(Colors::getValue)
+            .reduce(0, (acc, value) -> acc * 10 + value);
+
     }
 }
