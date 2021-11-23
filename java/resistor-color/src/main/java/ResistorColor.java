@@ -2,7 +2,7 @@ import java.util.stream.Stream;
 
 class ResistorColor {
 
-    public enum COLORS {
+    public enum Colors {
         BLACK(0),
         BROWN(1),
         RED(2),
@@ -18,21 +18,20 @@ class ResistorColor {
             return value;
         }
 
-        int value;
+        private final int value;
 
-        COLORS(int i) {
+        Colors(int i) {
             this.value = i;
 
         }
     }
 
-
     int colorCode(String color) {
-        return COLORS.valueOf(color.toUpperCase()).getValue();
+        return Colors.valueOf(color.toUpperCase()).getValue();
     }
 
     String[] colors() {
-        return Stream.of(COLORS.values()).map(v -> v.name().toLowerCase()).toArray(String[]::new);
+        return Stream.of(Colors.values()).map(v -> v.name().toLowerCase()).toArray(String[]::new);
     }
 
 }
