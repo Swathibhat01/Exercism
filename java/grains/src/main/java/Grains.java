@@ -1,9 +1,7 @@
 import java.math.BigInteger;
+import java.util.stream.IntStream;
 
 class Grains {
-
-    private BigInteger total = new BigInteger("1");
-
     BigInteger grainsOnSquare(final int square) {
         if (square < 1 || square > 64) {
             throw new IllegalArgumentException("square must be between 1 and 64");
@@ -12,10 +10,9 @@ class Grains {
     }
 
     BigInteger grainsOnBoard() {
-        for (int i = 2; i <= 64; i++) {
-            total = total.add(grainsOnSquare(i));
-        }
-        return total;
+        return IntStream.rangeClosed(1, 64)
+            .mapToObj(this::grainsOnSquare)
+            .reduce(BigInteger.ZERO, BigInteger::add);
     }
 
 }

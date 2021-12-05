@@ -1,13 +1,25 @@
 class ReverseString {
 
     String reverse(String inputString) {
-        if(inputString.isEmpty()){
+        if (inputString.isEmpty()) {
             return inputString;
         }
-        char[] arrayOfResultingString = new char[inputString.length()];
-        for(int i =inputString.length()-1 ,j=0;i>=0;i--,j++){
-            arrayOfResultingString[j]= inputString.charAt(i);
+        char[] chars = inputString.toCharArray();
+        char temp ;
+        int length = chars.length;
+        for(int i =0 ; i<length/2;i++){
+            temp =chars[i];
+            chars[i]=chars[length-1-i];
+            chars[length-1-i] = temp;
         }
-        return String.valueOf(arrayOfResultingString);
+        return String.valueOf(chars);
+
+
+//        StringBuilder sb = new StringBuilder();
+//        for (int i = inputString.length() - 1; i >= 0; i--) {
+//            sb.append(inputString.charAt(i));
+//        }
+//        return String.valueOf(sb);
+
     }
 }

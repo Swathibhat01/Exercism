@@ -7,28 +7,23 @@ class RotationalCipher {
     }
 
     String rotate(String data) {
-        char[] dataArray = data.toCharArray();
-        char[] rotatedArray = new char[dataArray.length];
-
-        for (int i = 0; i < dataArray.length; i++) {
-            if (!Character.isLetter(dataArray[i])) {
-                rotatedArray[i] = dataArray[i];
-                continue;
-            }
-
-            int rotatedChar = dataArray[i] + shiftKey;
-            if (Character.isUpperCase(dataArray[i]) && !Character.isUpperCase(rotatedChar)) {
-                rotatedChar = rotatedChar - 26;
-            }
-            if (Character.isLowerCase(dataArray[i]) && !Character.isLowerCase(rotatedChar)) {
-                rotatedChar = rotatedChar - 26;
-            }
-
-            rotatedArray[i] = (char) rotatedChar;
-        }
-
-        return String.valueOf(rotatedArray);
+        return data.chars()
+            .mapToObj(c -> rotateChar((char) c))
+            .reduce(new StringBuilder(), StringBuilder::append, StringBuilder::append).toString();
     }
 
+    private Character rotateChar(char characterToRotate) {
+        if(!Character.isLetter(characterToRotate)){
+            return characterToRotate;
+        }
+        int rotatedChar = characterToRotate + shiftKey;
+        if (Character.isUpperCase(characterToRotate) && !Character.isUpperCase(rotatedChar)) {
+            rotatedChar = rotatedChar - 26;
+        }
+        if (Character.isLowerCase(characterToRotate) && !Character.isLowerCase(rotatedChar)) {
+            rotatedChar = rotatedChar - 26;
+        }
+        return (char) rotatedChar;
+    }
 }
 

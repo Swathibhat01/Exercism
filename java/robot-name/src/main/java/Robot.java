@@ -1,11 +1,14 @@
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Stream;
 
 class Robot {
 
+    private static final Random random = new Random();
+    private static Set<String> allNames = new HashSet<>();
+
     private String name;
-    private Set<String> allRobotNameInFactory = new HashSet<>();
 
     Robot() {
         reset();
@@ -16,34 +19,32 @@ class Robot {
     }
 
     public void setName(String name) {
+        allNames.add(name);
         this.name = name;
     }
 
     public void reset() {
-        String allowedAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWZYZ";
-        String allowedDigits = "0123456789";
-
-        StringBuilder robotName;
-        do {
-            robotName = generateRobotName(allowedAlphabet, allowedDigits);
-        } while (allRobotNameInFactory.contains(robotName.toString()));
-        setName(robotName.toString());
-
+        Stream.generate(this::generateRobotName)
+            .filter(generatedName -> !allNames.contains(generatedName))
+            .findFirst().ifPresent(this::setName);
     }
 
-    private StringBuilder generateRobotName(String alphabet, String digits) {
+    private String generateRobotName() {
         StringBuilder name = new StringBuilder();
-        Random randomNumber = new Random();
-        getRandomCharFromPattern(alphabet, name, randomNumber);
-        getRandomCharFromPattern(alphabet, name, randomNumber);
-        getRandomCharFromPattern(digits, name, randomNumber);
-        getRandomCharFromPattern(digits, name, randomNumber);
-        getRandomCharFromPattern(digits, name, randomNumber);
-        return name;
+        name.append(randomChar());
+        name.append(randomChar());
+        name.append(randomInt());
+        name.append(randomInt());
+        name.append(randomInt());
+        return name.toString();
     }
 
-    private void getRandomCharFromPattern(String allowedAlphabet, StringBuilder stringBuilder,
-        Random random) {
-        stringBuilder.append(allowedAlphabet.charAt((random.nextInt(allowedAlphabet.length()))));
+    private int randomInt() {
+        return random.nextInt(10);
     }
+
+    private char randomChar() {
+        return (char) ('A' + random.nextInt(26));
+    }
+
 }
