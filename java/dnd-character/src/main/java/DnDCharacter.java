@@ -1,27 +1,27 @@
-import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 class DnDCharacter {
 
-    int[] abilityScores;
+    private int[] abilityScores;
 
     DnDCharacter() {
         int[] abilityScores = new int[6];
         for (int i = 0; i < 6; i++) {
             abilityScores[i] = ability();
         }
-        Arrays.sort(abilityScores);
         this.abilityScores = abilityScores;
     }
 
     int ability() {
         Random random = new Random();
-        int[] fourDiceScore = new int[4];
-        for (int i = 0; i < 4; i++) {
-            fourDiceScore[i] = random.nextInt(6) + 1;
-        }
-        Arrays.sort(fourDiceScore);
-        return fourDiceScore[1] + fourDiceScore[2] + fourDiceScore[3];
+        List<Integer> fourDiceScore = IntStream.range(0, 4)
+            .mapToObj(i -> random.nextInt(6) + 1)
+            .sorted()
+            .collect(Collectors.toList());
+        return fourDiceScore.get(1) + fourDiceScore.get(2) + fourDiceScore.get(3);
     }
 
     int modifier(int input) {

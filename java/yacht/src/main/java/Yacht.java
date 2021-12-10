@@ -1,17 +1,19 @@
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 class Yacht {
 
     private final int[] dice;
     private final YachtCategory yachtCategory;
+    private final Map<Integer, Long> diceCountMap;
 
     Yacht(int[] dice, YachtCategory yachtCategory) {
         this.yachtCategory = yachtCategory;
         this.dice = dice;
+        diceCountMap = Arrays.stream(dice).boxed()
+            .collect(Collectors.groupingBy(k -> k, Collectors.counting()));
+
     }
 
     int score() {
@@ -39,17 +41,13 @@ class Yacht {
             case CHOICE:
                 return calculateScoreOfChoice();
             case YACHT:
-                return calculateScoreOfYatch();
+                return calculateScoreOfYacht();
         }
         return 0;
     }
 
-    private int calculateScoreOfYatch() {
-        Set<Integer> collect = Arrays.stream(dice).boxed().collect(Collectors.toSet());
-        if (collect.size() == 1) {
-            return 50;
-        }
-        return 0;
+    private int calculateScoreOfYacht() {
+        return diceCountMap.size() == 1 ? 50 : 0;
     }
 
     private int calculateScoreOfChoice() {
@@ -57,42 +55,23 @@ class Yacht {
     }
 
     private int calculateScoreOfLittleAndBigStraight(int i) {
-        //Set<Integer> collect = new HashSet<>(dice);
-        Set<Integer> collect = Arrays.stream(dice).boxed().collect(Collectors.toSet());
-        if (collect.size() == 5 && !collect.contains(i)) {
-            return 30;
-        }
-        return 0;
-
+        return diceCountMap.size() == 5 && !diceCountMap.containsKey(i) ? 30 : 0;
     }
 
     private int calculateScoreIfFourOfAKind() {
-        Map<Integer, Long> collect = Arrays.stream(dice).boxed()
-            .collect(Collectors.groupingBy(k -> k, Collectors.counting()));
-        if (collect.size() == 1) {
-            return collect.keySet().iterator().next() * 4;
-        }
-        if ((collect.size() == 2) && collect.containsValue((long) 4)) {
-            for (Integer value : collect.keySet()) {
-                if (collect.get(value) == 4) {
-                    return 4 * value;
-                }
-            }
-        }
-        return 0;
+        return diceCountMap.keySet().stream()
+            .filter(k -> diceCountMap.get(k) >= 4)
+            .map(k -> k * 4).findAny().orElse(0);
     }
 
     private int calculateScoreOfFullHouse() {
-        Map<Integer, Long> collect = Arrays.stream(dice).boxed()
-            .collect(Collectors.groupingBy(k -> k, Collectors.counting()));
-        if ((collect.size() == 2) && collect.containsValue((long) 3)) {
+        if ((diceCountMap.size() == 2) && diceCountMap.containsValue(3L)) {
             return Arrays.stream(dice).sum();
         }
         return 0;
     }
 
     private int calculateOneToSix(int i) {
-       return Arrays.stream(dice).filter(v -> v==i).sum();
+        return Arrays.stream(dice).filter(v -> v == i).sum();
     }
-
 }

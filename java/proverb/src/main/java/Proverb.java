@@ -1,4 +1,5 @@
 import java.util.StringJoiner;
+import java.util.stream.IntStream;
 
 class Proverb {
 
@@ -15,9 +16,9 @@ class Proverb {
             return "";
         }
         StringJoiner sj = new StringJoiner("\n");
-        for (int i = 0; i <= words.length - 2; i++) {
-            sj.add(String.format(mainLineOfThePoem, words[i], words[i + 1]));
-        }
+        IntStream.rangeClosed(0, words.length - 2)
+            .mapToObj(i -> String.format(mainLineOfThePoem, words[i], words[i + 1]))
+            .forEach(sj::add);
         sj.add(String.format(lastLine, words[0]));
         return String.valueOf(sj);
     }
